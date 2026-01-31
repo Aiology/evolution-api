@@ -1,4 +1,4 @@
-version: "3.8"
+
 
 services:
   api:
@@ -15,6 +15,7 @@ services:
     networks:
       - evolution-net
       - dokploy-network
+      - aiyo_net
     env_file:
       - .env
     expose:
@@ -25,7 +26,9 @@ services:
     image: evoapicloud/evolution-manager:latest
     restart: always
     ports:
-      - "3000:80"
+      - "8081:80"
+    volumes:
+      - ./local_nginx.conf:/etc/nginx/conf.d/nginx.conf
     networks:
       - evolution-net
 
@@ -81,4 +84,6 @@ networks:
     name: evolution-net
     driver: bridge
   dokploy-network:
+    external: true
+  aiyo_net:
     external: true
